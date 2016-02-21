@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 	Page.find({} )
 	.exec()
 	.then(function(pages){
-		console.log(pages)
+		//console.log(pages)
 		res.render('index', {pages: pages})
 	})//some error catching
 

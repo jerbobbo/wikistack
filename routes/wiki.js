@@ -19,7 +19,7 @@ router.get('/:urlTitle', function(req, res, next) {
 	Page.findOne({ 'urlTitle':urlTitle  })
 	.exec()
 	.then( function(page){
-		console.log(page);
+		//console.log(page);
 		if (!!page)
 			res.render('wikipage', page);
 		})
