@@ -26,8 +26,11 @@ router.get('/:urlTitle', function(req, res, next) {
 	.exec()
 	.then( function(page){
 		//console.log(page);
-		if (!!page)
-			res.render('wikipage', page);
+		if (!!page) {
+			//console.log(JSON.stringify(page.authorName))
+			res.render('wikipage', {page: page});
+		}
+			
 		})
 	.catch(function(page){
 		res.send('this is blank')// fix error handling
@@ -61,19 +64,24 @@ router.post('/', function(req, res, next) {
 	
 	var postBody=req.body
 
-	console.log(postBody)
+	//console.log(postBody)
 
 	var title = postBody.title;
 
-	var page = new Page({
-    title: title,
-    content:  postBody.content,
-    status:postBody.status,
-    tags:postBody.tags.split(',')
-    // author:
-  });
+	User.findOrCreate({name: postBody.author, email:postBody.email})
+	.then(function(user) {
+		// console.log(user._id.toString());
+		var uid=user._id.toString()
 
-	page.save()
+		var page = new Page({
+	    title: title,
+	    content:  postBody.content,
+	    status:postBody.status,
+	    tags:postBody.tags.split(','),
+	    author:uid
+	  });
+		return page.save()
+	})
 	.then(function (page) {
 		res.redirect('/wiki/'+page.urlTitle)})
 	.catch(function(err) {

@@ -26,6 +26,17 @@ pageSchema.virtual('route').get(function(){
 	return '/wiki/'+this.urlTitle
 })
 
+pageSchema.virtual('authorName').get(function() {
+	console.log('virtual name', this.author);
+	var x = User.findById(this.author)
+	.then(function(name){
+		console.log(name.name);
+		return name;
+	})
+	console.log(JSON.stringify(x));
+	return x;
+})
+
 pageSchema.pre('validate', function(next) {
 	var title = this.title;
 	console.log('Title:',title);
@@ -50,10 +61,26 @@ pageSchema.pre('validate', function(next) {
 // });
 
 
+
 var userSchema = new Schema({
 	name:{type:String, required:true},
 	email:{type:String,unique:true,required:true}
 });
+
+
+
+userSchema.statics.findOrCreate = function(user) {
+	//console.log(user);
+	var that = this;
+	return that.find({ email: user.email })
+	.then(function (result) {
+		if (result.length)
+			return result[0];
+		console.log('user does not exist: ', user);
+		return that.create({name: user.name, email: user.email});
+	});
+	
+}
 
 var Page = mongoose.model('Page', pageSchema);
 var User = mongoose.model('User', userSchema);

@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <h3>{{title}}<small> (<a href="{{urlTitle}}/similar">Similar</a>)</small></h3>
+  <h3>{{page.title}}<small> (<a href="{{urlTitle}}/similar">Similar</a>)</small></h3>
   <!-- <h2>{{title}}</h2> -->
-  <h4>by <a href="PLACEHOLDER-AUTHOR-URL">{{author}}</a></h4>
-  <div>{{ tags | tagConcat }}</div>
+  <h4>by <a href="PLACEHOLDER-AUTHOR-URL">{{page.authorName.name}}</a></h4>
+  <div>{{ page.tags | tagConcat }}</div>
   <hr/>
   <div><a href={{author}}>author stuff</a></div>
-  <div class="page-body">{{content}}</div>
+  <div class="page-body">{{page.content}}</div>
   <hr/>
   <a href="{{urlTitle}}/edit" class="btn btn-primary">edit this page</a>
   <a href="{{urlTitle}}/delete" class="btn btn-danger">delete this page</a>
