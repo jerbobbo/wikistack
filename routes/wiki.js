@@ -37,6 +37,25 @@ router.get('/:urlTitle', function(req, res, next) {
 	// res.render('wikipage');
 });
 
+router.get('/:urlTitle/similar', function(req, res, next) {
+	urlTitle=req.params.urlTitle;
+
+	Page.findOne({ 'urlTitle':urlTitle })
+	.exec()
+	.then( function(page) {
+		var tags = page.tags;
+		console.log(tags);
+		return Page.where('tags').in(tags)
+		.where('urlTitle').nin([urlTitle])
+	})
+	.then(function (results) {
+		console.log(results);
+		res.render('index', {pages: results});
+	})
+//.$where(page.urlTitle !== this.urlTitle)
+
+});
+
 
 router.post('/', function(req, res, next) {
 	

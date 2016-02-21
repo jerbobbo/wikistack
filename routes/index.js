@@ -19,4 +19,27 @@ router.get('/', function(req, res, next) {
 	// res.render('index', {title: 'Home'});
 });
 
+router.get('/search', function(req, res, next) {
+
+
+	res.render('search');
+});
+
+
+router.post('/search', function(req, res, next) {
+
+	var searchtags=req.body.searchtags.split(',')
+	console.log(searchtags)
+	Page.where('tags')
+	.in(searchtags)
+	.exec()
+	.then(function(results){
+		res.render('index', {pages: results})
+		})
+	
+
+
+	// res.render('search');
+});
+
 module.exports = router;
