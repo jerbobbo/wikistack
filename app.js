@@ -16,5 +16,7 @@ app.use('/vendor', express.static( path.join(__dirname, 'node_modules')));
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/', require('./routes'));
+app.use('/wiki', require ('./routes/wiki.js'));
+
 
 module.exports = app;

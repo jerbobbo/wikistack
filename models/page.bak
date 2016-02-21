@@ -7,7 +7,7 @@ var pageSchema = new Schema({
 	content: [{ body: String }],
 	date: Date,
 	status: Boolean,
-	author: { ref: 'User', type: mongoose.Schema.ObjectId }
+	author: { ref: 'User', type: mongoose.Schema.ObjectId }// is his right?
 });
 
 var Page = mongoose.model('Page', pageSchema);
