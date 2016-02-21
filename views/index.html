@@ -5,7 +5,8 @@
   <hr>
   <ul class="list-unstyled">
     {% for page in pages %}
-    <li><a href='wiki/{{page.urlTitle}}'>{{page.title}}</a></li>
+    <li>{{ page | pageLink }}</li>
+    
   {% endfor %}
   </ul>
 {% endblock %}

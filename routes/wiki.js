@@ -11,6 +11,12 @@ router.get('/', function(req, res, next) {
 
 });
 
+router.get('/add', function(req, res, next) {
+	res.render('addpage', {title: 'adder'});
+});
+
+
+
 
 router.get('/:urlTitle', function(req, res, next) {
 	// db query find page where urltitle=...
@@ -43,7 +49,8 @@ router.post('/', function(req, res, next) {
 	var page = new Page({
     title: title,
     content:  postBody.content,
-    status:postBody.status
+    status:postBody.status,
+    tags:postBody.tags.split(',')
     // author:
   });
 

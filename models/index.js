@@ -18,6 +18,7 @@ var pageSchema = new Schema({
 	content: {type:String, required:true},
 	date: {type:Date, default:Date.now},
 	status: {type:String, enum:['open','closed']},
+	tags: [{type:[String], default:[]}] ,
 	author: { ref: 'User', type: mongoose.Schema.ObjectId }
 });
 
@@ -38,6 +39,16 @@ pageSchema.pre('validate', function(next) {
 	}
 	next();
 });
+
+// pageSchema.pre('validate', function(next) {
+	
+// 	console.log('tags:',this.tags);
+  	
+// 	//this.tags = this.tags.split(',');
+// 	//console.log(this.tags);
+// 	next();
+// });
+
 
 var userSchema = new Schema({
 	name:{type:String, required:true},

@@ -3,6 +3,7 @@ var app = express();
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var swig = require('swig');
+require('./filters')(swig);
 var methodOverride = require('method-override');
 var path = require('path');
 
